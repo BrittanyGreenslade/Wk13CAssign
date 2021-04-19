@@ -1,24 +1,19 @@
 <template>
-  <div>
-    <h3>{{ title }}</h3>
-    <p>{{ artist }}</p>
+  <div id="selectionContainer">
+    <h3>{{ selectedSong.title }}</h3>
+    <p>{{ selectedSong.artist }}</p>
   </div>
 </template>
-
 <script>
 export default {
   name: "play-list",
   props: {
-    title: String,
-    artist: String,
+    selectedSong: Object,
   },
 };
 </script>
 
 <style scoped>
-h1 {
-  text-decoration: underline;
-}
 div {
   height: 100vh;
   width: 100%;
