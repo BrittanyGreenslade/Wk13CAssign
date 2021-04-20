@@ -1,21 +1,21 @@
 <template>
   <div id="selectionContainer">
-    <h3>{{ selectedSong.title }}</h3>
-    <p>{{ selectedSong.artist }}</p>
+    <h3>{{ selectedSongObj.title }}</h3>
+    <p>{{ selectedSongObj.artist }}</p>
   </div>
 </template>
 <script>
 export default {
   name: "play-list",
   props: {
-    selectedSong: Object,
+    selectedSongObj: Object,
   },
 };
 </script>
 
 <style scoped>
 div {
-  height: 100vh;
+  height: 10vh;
   width: 100%;
 }
 </style>

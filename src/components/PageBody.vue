@@ -19,7 +19,12 @@
     <div id="playListContainer">
       <h1>Playlist</h1>
       <!-- id needed to grab element and put the item that was clicked into -->
-      <play-list id="playList" :selectedSong="selectedSong" />
+      <play-list
+        id="playList"
+        v-for="selectedSong in selectedSongs"
+        :key="selectedSong.id"
+        :selectedSongObj="selectedSong"
+      />
     </div>
   </div>
 </template>
@@ -90,10 +95,12 @@ export default {
           id: 10,
         },
       ],
-      selectedSong: {
-        title: undefined,
-        artist: undefined,
-      },
+      selectedSongs: [
+        //   {
+        //   title: undefined,
+        //   artist: undefined,
+        // }
+      ],
     };
   },
   //function that is called when the notify parent function in 'SongList' component is called
@@ -101,12 +108,23 @@ export default {
   //it takes in the data as an argument (which is whatever is emitted on click in fn in child)
   methods: {
     removeFromSongList: function(id) {
-      this.songItems.shift(id);
+      let notRemovedSongs = this.songItems.filter(function(song) {
+        if (song.id === id) {
+          return false;
+        } else if (song.id !== id) {
+          return true;
+        }
+      });
+      this.songItems = notRemovedSongs;
     },
+
     handleSongAddClick: function(data) {
       // console.log(data);
-      this.selectedSong.title = `${data.title}`;
-      this.selectedSong.artist = `${data.artist}`;
+      this.selectedSongs.push(data);
+      // this.selectedSong.push(data.title);
+      //  = `${data.title}`;
+      // this.selectedSong.push(data.artist);
+      // = `${data.artist}`;
       this.removeFromSongList(data.id);
       // document.getElementById("playList").innerHTML += `<h3>${data.title}</h3>`;
       // document.getElementById("playList").innerHTML += `<p>${data.artist}</p>`;
