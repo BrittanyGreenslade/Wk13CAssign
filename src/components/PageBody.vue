@@ -132,7 +132,7 @@ export default {
       this.selectedSongs.push(data);
       this.removeFromSongList(data.id);
     },
-    // working on a remove from playlist fn but not done yet
+//remove fn does the opposite of add fn
     handleRemoveFromPlaylist: function(removedSong) {
       this.songItems.push(removedSong);
       this.removeFromPlayList(removedSong.id);

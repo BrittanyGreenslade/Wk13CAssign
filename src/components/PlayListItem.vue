@@ -15,7 +15,7 @@ export default {
   props: {
     selectedSongObj: Object,
   },
-  // trying to do remove object but not done yet
+  //tells fn in parent what to do when an item is clicked in playlist to be removed back to song list
   methods: {
     playlistNotifyParent: function() {
       this.$emit("removeFromPlaylistClicked", this.selectedSongObj);
