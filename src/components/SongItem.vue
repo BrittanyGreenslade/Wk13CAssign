@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: "song-list",
+  name: "song-item",
   props: {
     songObject: Object,
     // title: String,

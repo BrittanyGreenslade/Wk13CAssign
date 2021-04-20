@@ -6,7 +6,7 @@
 </template>
 <script>
 export default {
-  name: "play-list",
+  name: "play-list-item",
   props: {
     selectedSongObj: Object,
   },
@@ -14,8 +14,8 @@ export default {
 </script>
 
 <style scoped>
-div {
-  height: 10vh;
+/* div {
+  height: 8vh;
   width: 100%;
-}
+} */
 </style>

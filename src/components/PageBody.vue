@@ -8,7 +8,7 @@
         <!-- loops through song songItems to grab each individual song by its id -->
         <!-- binding the attribute 'songObject' to each song so it knows which data to expect
         from its parent (comes from 'props' in 'SongList component')  -->
-        <song-list
+        <song-item
           @songAddClicked="handleSongAddClick"
           v-for="song in songItems"
           :key="song.id"
@@ -16,33 +16,36 @@
         />
       </div>
     </div>
-    <div id="playListContainer">
+    <div id="playList">
       <h1>Playlist</h1>
-      <!-- id needed to grab element and put the item that was clicked into -->
-      <play-list
-        id="playList"
-        v-for="selectedSong in selectedSongs"
-        :key="selectedSong.id"
-        :selectedSongObj="selectedSong"
-      />
+      <!-- loops through "selected songs" and gives a key to them, then adds them to 
+      selectedSongObj -->
+      <div id="playListContainer">
+        <play-list-item
+          v-for="selectedSong in selectedSongs"
+          :key="selectedSong.id"
+          :selectedSongObj="selectedSong"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 //importing the other components
-import PlayList from "./PlayList.vue";
-import SongList from "./SongList.vue";
+import PlayListItem from "./PlayListItem.vue";
+import SongItem from "./SongItem.vue";
 //declaring components withing page-body component
 export default {
   name: "page-body",
   components: {
-    SongList,
-    PlayList,
+    SongItem,
+    PlayListItem,
   },
   //store all data in the parent element
   data() {
     return {
+      // stores the songlist song objects in an array
       songItems: [
         {
           title: `The Neon Skyline`,
@@ -95,6 +98,7 @@ export default {
           id: 10,
         },
       ],
+      //stores the playlist song objects in an array
       selectedSongs: [
         //   {
         //   title: undefined,
@@ -117,17 +121,10 @@ export default {
       });
       this.songItems = notRemovedSongs;
     },
-
     handleSongAddClick: function(data) {
       // console.log(data);
       this.selectedSongs.push(data);
-      // this.selectedSong.push(data.title);
-      //  = `${data.title}`;
-      // this.selectedSong.push(data.artist);
-      // = `${data.artist}`;
       this.removeFromSongList(data.id);
-      // document.getElementById("playList").innerHTML += `<h3>${data.title}</h3>`;
-      // document.getElementById("playList").innerHTML += `<p>${data.artist}</p>`;
     },
   },
 };
@@ -137,18 +134,20 @@ export default {
 h1 {
   text-decoration: underline;
 }
-#playListContainer {
-  border: 1px solid black;
-}
+
 #sectionContainer {
   display: grid;
   grid-template-columns: 1fr 1fr;
   width: 90vw;
+  height: 80vh;
 }
-#songContainer {
+
+#songContainer,
+#playListContainer {
   display: grid;
 }
-#songList {
+#songList,
+#playList {
   border: 1px solid black;
 }
 </style>
