@@ -5,7 +5,7 @@
   <!-- have to put selectedSongObject because that's the name of the prop, but still want 
     to grab just the title and artist out of that object -->
   <div id="selectionContainer">
-    <h3>{{ selectedSongObj.title }}</h3>
+    <h3 @click="playlistNotifyParent">{{ selectedSongObj.title }}</h3>
     <p>{{ selectedSongObj.artist }}</p>
   </div>
 </template>
@@ -15,13 +15,12 @@ export default {
   props: {
     selectedSongObj: Object,
   },
-  //trying to do remove object but not done yet
-  // methods: {
-  //   playlistNotifyParent: function() {
-  //     this.$emit("removeFromPlaylistClicked", this.selectedSongObj.name);
-  //   },
-  // },
-  // @click="playlistNotifyParent"
+  // trying to do remove object but not done yet
+  methods: {
+    playlistNotifyParent: function() {
+      this.$emit("removeFromPlaylistClicked", this.selectedSongObj);
+    },
+  },
 };
 </script>
 

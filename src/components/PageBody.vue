@@ -22,6 +22,7 @@
       //then adds the attribute selectedSongObj to them -->
       <div id="playListContainer">
         <play-list-item
+          @removeFromPlaylistClicked="handleRemoveFromPlaylist"
           v-for="selectedSong in selectedSongs"
           :key="selectedSong.id"
           :selectedSongObj="selectedSong"
@@ -113,16 +114,16 @@ export default {
     //filters out the songs whose ids don't match the id of the song object that was clicked
     //if the ids match, return false; if not, return true. store all of that in a variable
     //called notRemovedSongs and udpates the 'songItems' list to the filtered out songs
-    //aka all songs not cliceked
+    //aka all songs not clicked
     removeFromSongList: function(id) {
-      let notRemovedSongs = this.songItems.filter(function(song) {
+      let newSongItems = this.songItems.filter(function(song) {
         if (song.id === id) {
           return false;
         } else if (song.id !== id) {
           return true;
         }
       });
-      this.songItems = notRemovedSongs;
+      this.songItems = newSongItems;
     },
     //function that is called when the notifyParent fn in 'SongList' component is called,
     //and what to do in this component when that happens. it takes in the data as an
@@ -131,11 +132,21 @@ export default {
       this.selectedSongs.push(data);
       this.removeFromSongList(data.id);
     },
-    //working on a remove from playlist fn but not done yet
-    // handleRemoveFromPlaylist: function(data1) {
-    //   console.log(data1);
-    // },
-    //@removeFromPlaylistClicked="handleRemoveFromPlaylist"
+    // working on a remove from playlist fn but not done yet
+    handleRemoveFromPlaylist: function(removedSong) {
+      this.songItems.push(removedSong);
+      this.removeFromPlayList(removedSong.id);
+    },
+    removeFromPlayList: function(id) {
+      let newSelectedSongs = this.selectedSongs.filter(function(selectedSong) {
+        if (selectedSong.id === id) {
+          return false;
+        } else if (selectedSong.id !== id) {
+          return true;
+        }
+      });
+      this.selectedSongs = newSelectedSongs;
+    },
   },
 };
 </script>
