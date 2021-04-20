@@ -18,8 +18,8 @@
     </div>
     <div id="playList">
       <h1>Playlist</h1>
-      <!-- loops through "selected songs" and gives a key to them, then adds them to 
-      selectedSongObj -->
+      <!-- loops through "selected songs" and gives a key to them (which is their id), 
+      //then adds the attribute selectedSongObj to them -->
       <div id="playListContainer">
         <play-list-item
           v-for="selectedSong in selectedSongs"
@@ -107,10 +107,13 @@ export default {
       ],
     };
   },
-  //function that is called when the notify parent function in 'SongList' component is called
-  //and what to do here when that happens
-  //it takes in the data as an argument (which is whatever is emitted on click in fn in child)
+
   methods: {
+    //function to remove the song that was clicked from the playlist
+    //filters out the songs whose ids don't match the id of the song object that was clicked
+    //if the ids match, return false; if not, return true. store all of that in a variable
+    //called notRemovedSongs and udpates the 'songItems' list to the filtered out songs
+    //aka all songs not cliceked
     removeFromSongList: function(id) {
       let notRemovedSongs = this.songItems.filter(function(song) {
         if (song.id === id) {
@@ -121,11 +124,18 @@ export default {
       });
       this.songItems = notRemovedSongs;
     },
+    //function that is called when the notifyParent fn in 'SongList' component is called,
+    //and what to do in this component when that happens. it takes in the data as an
+    //argument (which is whatever is emitted on click in fn in child - the object)
     handleSongAddClick: function(data) {
-      // console.log(data);
       this.selectedSongs.push(data);
       this.removeFromSongList(data.id);
     },
+    //working on a remove from playlist fn but not done yet
+    // handleRemoveFromPlaylist: function(data1) {
+    //   console.log(data1);
+    // },
+    //@removeFromPlaylistClicked="handleRemoveFromPlaylist"
   },
 };
 </script>
